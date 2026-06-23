@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/app/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/animales-3D/delfin.glb)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/app-assets/identidad/logo_mar_especies.png)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/app-assets/miniaturas/thumb_delfin.png)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/app-assets/habitats/habitat_mar_abierto.png)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/app-assets/iconos/icon_grupo.png)",
+      "Bash(ls /c/Users/usuario/Desktop/Mar-especies/.claude 2>/dev/null || mkdir -p /c/Users/usuario/Desktop/Mar-especies/.claude && ls /c/Users/usuario/Desktop/Mar-especies/.claude)"
+    ]
+  }
+}

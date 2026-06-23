@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mar Especies Studio · Explora animales marinos en 3D</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../app-assets/identidad/logo_mar_especies.png"
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"
+    ></script>
+  </head>
+  <body>
+    <div class="app" id="app">
+      <!-- ============ Barra superior ============ -->
+      <header class="topbar">
+        <div class="topbar__brand">
+          <img
+            class="topbar__logo"
+            src="../app-assets/identidad/logo_mar_especies.png"
+            alt="Mar Especies"
+          />
+          <div class="topbar__title">
+            <strong>Mar Especies Studio</strong>
+            <span>Explora animales marinos en 3D</span>
+          </div>
+        </div>
+        <nav class="topbar__nav" id="topbar-nav">
+          <button class="is-active" data-view="galeria">Galería</button>
+          <button data-view="biblioteca">Biblioteca</button>
+          <button data-view="cuaderno">Cuaderno</button>
+          <button data-view="ajustes">Ajustes</button>
+        </nav>
+        <div
+          class="topbar__avatar"
+          style="background-image: url('../app-assets/miniaturas/thumb_delfin.png')"
+          title="Perfil"
+        ></div>
+      </header>
+
+      <!-- ============ Workspace principal ============ -->
+      <main class="workspace">
+        <!-- Sidebar especies -->
+        <aside class="card species-card">
+          <h2 class="card__title">Especies marinas</h2>
+          <div class="species-list" id="species-list"></div>
+        </aside>
+
+        <!-- Columna central: visor + fila inferior compacta -->
+        <section class="center-column">
+        <section class="card viewer-card" id="viewer-card">
+          <div class="viewer-header">
+            <div class="viewer-title">
+              <h1 id="viewer-name">—</h1>
+              <p id="viewer-group">—</p>
+            </div>
+            <div class="viewer-mode">
+              <div class="viewer-mode__label">Modo de vista</div>
+              <div class="viewer-mode__tabs" id="mode-tabs">
+                <button class="is-active" data-mode="3d">3D</button>
+                <button data-mode="ar">AR</button>
+                <button data-mode="360">360°</button>
+              </div>
+              <label class="viewer-mode__toggle">
+                <span
+                  class="switch is-on"
+                  id="habitat-switch"
+                  role="switch"
+                  aria-checked="true"
+                ></span>
+                Fondo hábitat
+              </label>
+            </div>
+          </div>
+
+          <div class="viewer-stage" id="viewer-stage">
+            <span class="viewer-habitat" id="viewer-habitat">Mar abierto</span>
+            <div class="viewer-stage__tip">
+              Tip: arrastra para rotar, rueda para acercar, doble clic para
+              enfocar.
+            </div>
+            <div class="viewer-stage__loading">Cargando modelo 3D…</div>
+            <model-viewer
+              id="model-viewer"
+              alt="Modelo 3D del animal seleccionado"
+              camera-controls
+              touch-action="pan-y"
+              shadow-intensity="0.8"
+              exposure="1"
+              environment-image="neutral"
+              auto-rotate-delay="500"
+              interaction-prompt="auto"
+              ar
+              ar-modes="webxr scene-viewer quick-look"
+            ></model-viewer>
+
+            <button id="btn-exit-isolate" class="exit-isolate" title="Salir del modo aislado">
+              <span class="exit-isolate__x">×</span>
+              <span class="exit-isolate__label">Salir</span>
+            </button>
+          </div>
+
+          <div class="viewer-actions">
+            <div class="viewer-actions__group">
+              <button id="btn-rotate" title="Activar / detener auto-rotación">
+                <span>⟳</span> Rotar
+              </button>
+              <button id="btn-isolate" title="Aislar el visor a pantalla completa">
+                <span>◫</span> Aislar
+              </button>
+              <button id="btn-reset" title="Volver a la vista inicial">
+                <span>⌂</span> Vista inicial
+              </button>
+            </div>
+            <div class="viewer-actions__group">
+              <button id="btn-capture" title="Capturar imagen PNG">
+                <span>📸</span> Captura
+              </button>
+              <button id="btn-export" title="Descargar el modelo .glb">
+                <span>⤓</span> Exportar 3D
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Fila inferior dentro de la columna central -->
+        <div class="center-bottom" id="center-bottom">
+          <article class="card collapsible" data-key="galeria">
+            <header class="card__head">
+              <h2 class="card__title">Galería educativa</h2>
+              <button class="card__toggle" aria-expanded="true" aria-label="Mostrar / ocultar galería">
+                <span class="chev">▾</span>
+              </button>
+            </header>
+            <div class="card__body">
+              <div class="gallery">
+                <button class="gallery__item" data-gallery="anatomia">
+                  <img id="gallery-anatomia" alt="Anatomía" />
+                  <span>Anatomía</span>
+                </button>
+                <button class="gallery__item" data-gallery="ficha">
+                  <img id="gallery-ficha" alt="Ficha visual" />
+                  <span>Ficha visual</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card comparar collapsible" data-key="comparar">
+            <header class="card__head">
+              <h2 class="card__title">Comparar especies</h2>
+              <button class="card__toggle" aria-expanded="true" aria-label="Mostrar / ocultar comparador">
+                <span class="chev">▾</span>
+              </button>
+            </header>
+            <div class="card__body">
+              <div class="comparar__row">
+                <div class="comparar__chip">
+                  <img id="compare-a-thumb" alt="" />
+                  <strong id="compare-a-name">—</strong>
+                  <small id="compare-a-group">—</small>
+                  <select id="compare-a-select"></select>
+                </div>
+                <div class="comparar__vs">VS</div>
+                <div class="comparar__chip">
+                  <img id="compare-b-thumb" alt="" />
+                  <strong id="compare-b-name">—</strong>
+                  <small id="compare-b-group">—</small>
+                  <select id="compare-b-select"></select>
+                </div>
+              </div>
+              <button class="comparar__open" id="btn-compare">
+                Abrir comparación
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+      <!-- /center-column -->
+
+        <!-- Columna derecha -->
+        <aside class="right-column">
+          <section class="card detail-card">
+            <h2 class="card__title">Detalles del animal</h2>
+            <div class="detail-card__header">
+              <img id="detail-avatar" class="detail-card__avatar" alt="" />
+              <div class="detail-card__name">
+                <strong id="detail-name">—</strong>
+                <em id="detail-sci">—</em>
+              </div>
+            </div>
+            <div class="detail-grid" id="detail-grid"></div>
+          </section>
+
+          <section class="card eco-card collapsible" data-key="eco">
+            <header class="card__head">
+              <h2 class="card__title">Notas ecológicas</h2>
+              <button class="card__toggle" aria-expanded="true" aria-label="Mostrar / ocultar notas">
+                <span class="chev">▾</span>
+              </button>
+            </header>
+            <div class="card__body">
+              <p id="eco-text">—</p>
+              <p class="dato" id="eco-dato">—</p>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <!-- Modal galería ampliada -->
+    <div class="modal" id="modal-image">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <h2 id="modal-image-title">Galería</h2>
+          <button class="modal__close" data-close>×</button>
+        </div>
+        <img
+          id="modal-image-img"
+          alt=""
+          style="width: 100%; border-radius: 12px"
+        />
+        <p
+          id="modal-image-cap"
+          style="margin-top: 12px; color: var(--text-muted); font-size: 14px"
+        ></p>
+      </div>
+    </div>
+
+    <!-- Modal comparador -->
+    <div class="modal" id="modal-compare">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <h2>Comparar especies</h2>
+          <button class="modal__close" data-close>×</button>
+        </div>
+        <div class="compare-grid" id="compare-grid"></div>
+      </div>
+    </div>
+
+    <!-- Modal vistas auxiliares (Biblioteca / Cuaderno / Ajustes) -->
+    <div class="modal" id="modal-view">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <h2 id="modal-view-title">—</h2>
+          <button class="modal__close" data-close>×</button>
+        </div>
+        <div id="modal-view-body"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">Listo</div>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

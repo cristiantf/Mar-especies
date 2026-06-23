@@ -1,0 +1,14 @@
+{
+  "name": "mar-especies-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "App web educativa interactiva sobre 14 animales marinos en 3D.",
+  "scripts": {
+    "start": "npx --yes serve@latest -l 5173 ..",
+    "start:py": "python -m http.server 5173 --directory ..",
+    "start:node": "npx --yes http-server@latest .. -p 5173 -c-1"
+  },
+  "keywords": ["3D", "educacion", "marino", "model-viewer", "biologia"],
+  "author": "Mar Especies",
+  "license": "MIT"
+}
