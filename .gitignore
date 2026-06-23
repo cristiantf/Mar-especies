@@ -1,0 +1,14 @@
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos locales de configuración de VS Code (opcional)
+.vscode/
+
+# Ignorar las carpetas locales de logs de npm
+logs/
+*.log
